@@ -1,0 +1,23 @@
+name = "viridian"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+# Durable Object binding — this is the piece the dashboard UI wasn't
+# picking up. Declaring it here, directly, sidesteps that entirely.
+[[durable_objects.bindings]]
+name = "USER_TIMELINE"
+class_name = "UserTimeline"
+
+# Required the first time a new Durable Object class is introduced —
+# tells Cloudflare "this class is brand new, provision storage for it."
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["UserTimeline"]
+
+[[kv_namespaces]]
+binding = "VIRIDIAN_KV"
+id = "e41a37a232d34a5480ae58fd39df0530"
+
+[[kv_namespaces]]
+binding = "TOKENS"
+id = "7e27fca7222c41c19cef072f298750c9"
